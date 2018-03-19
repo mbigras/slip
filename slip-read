@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+pattern = ARGV.shift
+records = ARGF.readlines.map { |r| r.chomp.split("\t") }
+labels = records.first
+idx = labels.index { |e| e.match Regexp.new(pattern) }
+if idx
+  puts records.map { |r| r[idx] }.select { |e| e && e.length > 0 }
+  exit 0
+else
+  exit 1
+end
