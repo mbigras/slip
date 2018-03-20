@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+usage = "fmt WIDTH [FILE ...]"
+width = ARGV.shift || abort("Usage: #{usage}")
+
+out = ARGF.readlines.map do |line|
+  recs = line.split(/\s+/)
+  fmt  = recs.map { |_| "\%-#{width}s" }.join
+  fmt << "\n"
+  sprintf(fmt, *recs)
+end
+
+puts out
